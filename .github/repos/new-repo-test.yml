@@ -22,4 +22,7 @@ repository:
   # Can be public or private. If your organization is associated with an enterprise account using 
   # GitHub Enterprise Cloud or GitHub Enterprise Server 2.20+, visibility can also be internal. 
   visibility: private
-  
+
+  collaborators:
+  - username: cheld
+    permission: push
