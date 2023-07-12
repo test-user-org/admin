@@ -26,3 +26,7 @@ repository:
   collaborators:
   - username: cheld
     permission: push
+
+  teams:
+  - name: core
+    permission: admin
