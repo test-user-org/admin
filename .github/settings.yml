@@ -18,3 +18,6 @@ repository:
   - name: my-new-team
     permission: admin
 
+  collaborators:
+  - username: cheld-demo
+    permission: admin
