@@ -15,6 +15,6 @@ repository:
   auto_init: true
 
   teams:
-  - name: test-user-org/my-new-team
+  - name: my-new-team
     permission: admin
 
