@@ -14,6 +14,4 @@ repository:
   # A URL with more information about the repository
   homepage: https://example.repo.io/
   
-  collaborators:
-  - username: cheld-demo
-    permission: admin
+
