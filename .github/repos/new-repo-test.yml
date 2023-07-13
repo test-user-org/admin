@@ -24,5 +24,5 @@ repository:
   visibility: private
   
   teams:
-  - name: all
+  - name: my-new-team
     permission: admin
