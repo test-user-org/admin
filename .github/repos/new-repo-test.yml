@@ -15,5 +15,5 @@ repository:
   homepage: https://example.repo.io/
   
   collaborators:
-  - username: nauar
+  - username: cheld-demo
     permission: admin
