@@ -16,4 +16,4 @@ repository:
   
   collaborators:
   - username: cheld
-    permission: push
+    permission: maintain
