@@ -16,4 +16,4 @@ repository:
   
   collaborators:
   - username: nauar
-    permission: push
+    permission: pull
