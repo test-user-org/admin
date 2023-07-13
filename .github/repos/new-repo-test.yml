@@ -25,4 +25,4 @@ repository:
   
   teams:
   - name: my-new-team
-    permission: admin
+    permission: push
