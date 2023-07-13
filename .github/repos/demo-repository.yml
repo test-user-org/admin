@@ -15,5 +15,5 @@ repository:
   homepage: https://repo.repo.io/
 
   teams:
-  - name: my-new-team
+  - name: @test-user-org/my-new-team
     permission: admin
