@@ -14,6 +14,6 @@ repository:
   # A URL with more information about the repository
   homepage: https://example.repo.io/
   
-  teams:
-  - name: my-new-team
+  collaborators:
+  - username: cheld
     permission: push
