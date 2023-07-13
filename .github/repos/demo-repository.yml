@@ -13,3 +13,7 @@ repository:
   
   # A URL with more information about the repository
   homepage: https://repo.repo.io/
+
+  teams:
+  - name: my-new-team
+    permission: admin
