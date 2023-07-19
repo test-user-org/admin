@@ -4,12 +4,18 @@ on:
     - cron: "*/10 * * * *"
   workflow_dispatch: 
 
+   interval: '10m'
+
 jobs:
   run-script:
     runs-on: ubuntu-latest
     steps:
-      - name: List public repositories
+      - name: Run script
         run: |
-          ORG_NAME=$(echo "${GITHUB_REPOSITORY}" | cut -d'/' -f1)
-          ACCESS_TOKEN="${{ secrets.GH_ACCESS_TOKEN }}"  # Use the GitHub access token from repository secrets
-          REPO_LIST=$(curl -s -H "Authorization: token $ACCESS_TOKEN" "https://api.github.com/orgs/$ORG_NAME/repos" | jq -r '.[] | select(.private == false) | .full_name')
+          # Get the list of public repositories in the organization
+          repositories=$(gh api orgs/<organization>/public_repositories)
+
+          # For each repository, run the script
+          for repository in $repositories; do
+            echo $repository
+          done
