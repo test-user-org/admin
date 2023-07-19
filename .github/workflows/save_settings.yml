@@ -13,7 +13,7 @@ jobs:
       run: |
         echo "repository variable : $REPOSITORY_VAR"
         echo "organization variable : $ORGANIZATION_VAR"
-        echo "overridden variable : $OVERRIDE_VAR"
+        echo "overridden variable : $RUNNER_OS"
         echo "variable from shell environment : $env_var"
       env:
         REPOSITORY_VAR: ${{ vars.REPOSITORY_VAR }}
