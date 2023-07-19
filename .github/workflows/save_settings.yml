@@ -3,6 +3,8 @@ on:
   schedule:
     - cron: "*/10 * * * *"
   workflow_dispatch: 
+variable
+  env_var: ${{ vars.ENV_CONTEXT_VAR }}
 
 jobs:
   run-script:
