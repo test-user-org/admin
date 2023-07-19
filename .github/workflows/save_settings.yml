@@ -12,7 +12,7 @@ jobs:
     - name: Use variables
       run: |
         echo "repository variable : $REPOSITORY_VAR"
-        echo "organization variable : $ORGANIZATION_VAR"
+        echo "organization variable : $GITHUB_REPOSITORY_OWNER"
         echo "overridden variable : $RUNNER_OS"
         echo "variable from shell environment : $env_var"
       env:
