@@ -10,15 +10,13 @@ jobs:
   run-script:
     runs-on: ubuntu-latest
     steps:
-      - name: Run script
-        run: |
-          # Get the list of public repositories in the organization
-          organization=${{ github.repository_owner }}
-          repositories=$(gh api orgs/$organization/public_repositories)
-
-          gh repo list
-
-          # For each repository, run the script
-          for repository in $repositories; do
-            echo $repository
-          done
+    - name: Use variables
+      run: |
+        echo "repository variable : $REPOSITORY_VAR"
+        echo "organization variable : $ORGANIZATION_VAR"
+        echo "overridden variable : $OVERRIDE_VAR"
+        echo "variable from shell environment : $env_var"
+      env:
+        REPOSITORY_VAR: ${{ vars.REPOSITORY_VAR }}
+        ORGANIZATION_VAR: ${{ vars.ORGANIZATION_VAR }}
+        OVERRIDE_VAR: ${{ vars.OVERRIDE_VAR }}
