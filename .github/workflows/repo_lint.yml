@@ -27,3 +27,11 @@ jobs:
           # installation_id not needed IF the app is installed on this current repo
           installation_id: 29881931
           private_key: ${{ secrets.PRIVATE_KEY }}
+          
+          
+          - name: Create Issue
+        env:
+          GH_TOKEN: ${{ steps.get_installation_token.outputs.token }}
+        run: | 
+          gh issue create --title "My new issue" --body "Here are more details." \
+            -R my-org/my-repo
