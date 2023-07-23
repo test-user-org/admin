@@ -20,7 +20,6 @@ jobs:
         id: get_installation_token
         with:
           app_id: 359521
-          installation_id: 29881931
           private_key: ${{ secrets.PRIVATE_KEY }}
       - name: Create Issue
         env:
