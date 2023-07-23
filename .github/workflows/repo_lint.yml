@@ -1,37 +1,30 @@
+---
 name: Run repolint
 on:
-  schedule:
-    - cron: "*/10 * * * *"
-  workflow_dispatch: 
-
-
+  workflow_dispatch: null
 jobs:
   run-script:
     runs-on: ubuntu-latest
     steps:
-    - name: Use variables
-      run: |
-        echo "repository variable : $REPOSITORY_VAR"
-        echo "organization variable : $GITHUB_REPOSITORY_OWNER"
-        echo "overridden variable : $RUNNER_OS"
-        echo "variable from shell environment : $env_var"
-      env:
-        REPOSITORY_VAR: ${{ vars.REPOSITORY_VAR }}
-        ORGANIZATION_VAR: ${{ vars.ORGANIZATION_VAR }}
-        OVERRIDE_VAR: ${{ runner.os }}
-    
-    - uses: tibdex/github-app-token@v1
+      - name: Use variables
+        run: |
+          echo "repository variable : $REPOSITORY_VAR"
+          echo "organization variable : $GITHUB_REPOSITORY_OWNER"
+          echo "overridden variable : $RUNNER_OS"
+          echo "variable from shell environment : $env_var"
+        env:
+          REPOSITORY_VAR: ${{ vars.REPOSITORY_VAR }}
+          ORGANIZATION_VAR: ${{ vars.ORGANIZATION_VAR }}
+          OVERRIDE_VAR: ${{ runner.os }}
+      - uses: tibdex/github-app-token@v1
         id: get_installation_token
-        with: 
-          app_id: 170544
-          # installation_id not needed IF the app is installed on this current repo
+        with:
+          app_id: 359521
           installation_id: 29881931
           private_key: ${{ secrets.PRIVATE_KEY }}
-          
-          
-          - name: Create Issue
+      - name: Create Issue
         env:
           GH_TOKEN: ${{ steps.get_installation_token.outputs.token }}
-        run: | 
+        run: >
           gh issue create --title "My new issue" --body "Here are more details." \
-            -R my-org/my-repo
+            -R test-user-org/admin
