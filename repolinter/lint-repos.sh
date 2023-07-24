@@ -15,10 +15,10 @@ REPOS=$(gh repo list $ORG_NAME --visibility public -L 100 | awk '{print $1}')
 # Loop through each repository and create an issue
 for REPO in $REPOS; do
     mkdir -p ../results/$repo
-    repolinter -g https://github.com/$repo -f markdown -u https://raw.githubusercontent.com/eBay/.github/main/repolinter.yaml > results/$repo.md
+    repolinter -g https://github.com/$REPO -f markdown -u https://raw.githubusercontent.com/eBay/.github/main/repolinter.yaml > results/$REPO.md
     if [ $? -eq 1 ] ; then
-        failure="The repository '$repo' is not compliant with Allianz guidelines. Please review opensource.allianz.com/guidelines"
-        report=`cat ../results/$org/$repo.md`
+        failure="The repository '$REPO' is not compliant with Allianz guidelines. Please review opensource.allianz.com/guidelines"
+        report=`cat ../results/$REPO.md`
         create_issue "$REPO" "Repo lint error" $report
     fi
 done
