@@ -34,4 +34,4 @@ jobs:
       - name: Lint Repos
         env:
           GH_TOKEN: ${{ steps.get_installation_token.outputs.token }}
-        run: ls
+        run: repolinter/lint-repos.sh
