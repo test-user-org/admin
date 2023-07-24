@@ -19,6 +19,6 @@ for REPO in $REPOS; do
     if [ $? -eq 1 ] ; then
         failure="The repository '$REPO' is not compliant with Allianz guidelines. Please review opensource.allianz.com/guidelines"
         report=`cat results/$REPO.md`
-        create_issue "$REPO" "Repo lint error" "$failure"
+        create_issue "$REPO" "Repo lint error" "$failure\n\n$report"
     fi
 done
