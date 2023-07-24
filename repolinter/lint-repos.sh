@@ -10,7 +10,7 @@ create_issue() {
 }
 
 # List repositories in the organization
-REPOS=$(gh repo list $ORG_NAME -L 100 | awk '{print $1}')
+REPOS=$(gh repo list $ORG_NAME --visibility public -L 100 | awk '{print $1}')
 
 # Loop through each repository and create an issue
 for REPO in $REPOS; do
