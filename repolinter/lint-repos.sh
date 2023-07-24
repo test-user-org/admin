@@ -4,7 +4,7 @@
 issue_exists() {
   REPO=$1
   ISSUE_TITLE=$2
-  gh issue list -R "cheld/org" --state open --json number,title |  jq -r ".[] | select(.title == \"$ISSUE_TITLE\") | .number"
+  gh issue list -R "$REPO" --state open --json number,title |  jq -r ".[] | select(.title == \"$ISSUE_TITLE\") | .number"
 }
 
 # Function to create an issue if it doesn't already exist
