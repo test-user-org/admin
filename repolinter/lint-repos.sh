@@ -18,7 +18,7 @@ for REPO in $REPOS; do
     repolinter -g https://github.com/$REPO -f markdown -u https://raw.githubusercontent.com/eBay/.github/main/repolinter.yaml > results/$REPO.md
     if [ $? -eq 1 ] ; then
         failure="The repository '$REPO' is not compliant with Allianz guidelines. Please review opensource.allianz.com/guidelines"
-        report=`cat ../results/$REPO.md`
+        report=`cat results/$REPO.md`
         create_issue "$REPO" "Repo lint error" $report
     fi
 done
