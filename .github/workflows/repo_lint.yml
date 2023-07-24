@@ -28,9 +28,7 @@ jobs:
         with:
           app_id: 365344
           private_key: ${{ secrets.PRIVATE_KEY }}
-      - name: Create Issue
+      - name: Lint Repos
         env:
           GH_TOKEN: ${{ steps.get_installation_token.outputs.token }}
-        run: >
-          gh issue create --title "My new issue" --body "Here are more details." \
-            -R test-user-org/admin
+        run: scripts/lint-repos.sh
