@@ -1,6 +1,6 @@
 #!/bin/bash
-cd "$(dirname "$0")"
-rm -Rf ../results
+
+echo "**1"
 
 # Function to create an issue
 create_issue() {
@@ -13,6 +13,8 @@ create_issue() {
 
 # List repositories in the organization
 REPOS=$(gh repo list $ORG_NAME -L 100 | awk '{print $1}')
+
+echo $REPOS
 
 # Loop through each repository and create an issue
 for REPO in $REPOS; do
