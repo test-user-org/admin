@@ -39,7 +39,7 @@ for REPO in $REPOS; do
     echo
     echo "Linting the repository '$REPO'..."
     mkdir -p ../results/$REPO
-    repolinter -g https://github.com/$REPO -f markdown -u https://raw.githubusercontent.com/eBay/.github/main/repolinter.yaml > ../results/$REPO.md
+    repolinter -g https://github.com/$REPO -f markdown -u https://raw.githubusercontent.com/test-user-org/admin/main/.github/repolinter.yaml > ../results/$REPO.md
     if [ $? -eq 1 ] ; then
         failure="The repository '$REPO' is not compliant with Allianz guidelines. Please review opensource.allianz.com/guidelines"
         report=`cat ../results/$REPO.md`
