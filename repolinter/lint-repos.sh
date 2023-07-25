@@ -18,7 +18,7 @@ create_issue_if_not_exists() {
   if [ -z "$existing_issue_number" ]; then
     gh issue create -R "$REPO" --title "$ISSUE_TITLE" --body "$ISSUE_BODY"
   else
-    echo "An open issue with the title '$ISSUE_TITLE' already exists in the repository '$REPO'. Skipping issue creation."
+    echo "An open issue already exists in the repository '$REPO'. Skipping"
   fi
 }
 
@@ -29,13 +29,15 @@ close_issue() {
   ISSUE_NUMBER=$(issue_exists "$REPO" "$ISSUE_TITLE")
   if [ -n "$ISSUE_NUMBER" ]; then
     gh issue close -R "$REPO" "$ISSUE_NUMBER"
-    echo "Closed the existing issue with the title '$ISSUE_TITLE' in the repository '$REPO'."
+    echo "Closed the existing issue in the repository '$REPO'."
   fi
 }
 
 # Loop through each repository and create an issue
 REPOS=$(gh repo list $ORG_NAME --visibility public -L 100 | awk '{print $1}')
 for REPO in $REPOS; do
+    echo
+    echo "Linting the repository '$REPO'..."
     mkdir -p ../results/$REPO
     repolinter -g https://github.com/$REPO -f markdown -u https://raw.githubusercontent.com/eBay/.github/main/repolinter.yaml > ../results/$REPO.md
     if [ $? -eq 1 ] ; then
