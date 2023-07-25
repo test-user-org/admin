@@ -13,7 +13,7 @@ issue_exists() {
 create_issue_if_not_exists() {
   REPO=$1
   ISSUE_TITLE=$2
-  ISSUE_BODY=$3
+  ISSUE_BODY=$(echo -e "$3")
   existing_issue_number=$(issue_exists "$REPO" "$ISSUE_TITLE")
   if [ -z "$existing_issue_number" ]; then
     gh issue create -R "$REPO" --title "$ISSUE_TITLE" --body "$ISSUE_BODY"
