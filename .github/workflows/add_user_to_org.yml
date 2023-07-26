@@ -1,4 +1,4 @@
-name: Organization Member Onboarding Workflow
+name: Member Onboarding
 on:
   issues:
     types: [opened, edited]
