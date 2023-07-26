@@ -5,13 +5,11 @@ title: "<Reason>"
 labels: ["bug", "triage"]
 body:
 
-  ## Introduction 
   - type: markdown
     attributes:
       value: |
         Thanks for taking the time to fill out this form!
  
-  ## Bug Description 
   - type: input
     id: email
     attributes:
@@ -20,7 +18,19 @@ body:
         Only Allianz email addresses are accepted
       placeholder: joe.doe@allianz.com   
     validations:
-      required: true       
+      required: true    
+
+  - type: dropdown
+    id: organization
+    attributes:
+      label: "Organization"
+      description: Which organizations do you want to join? ?
+      multiple: true
+      options:
+        - Allianz Incubator
+        - Allianz
+    validations:
+      required: true
 
   - type: checkboxes
     id: component

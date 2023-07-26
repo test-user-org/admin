@@ -14,8 +14,6 @@ jobs:
           script: |
             const issue = context.payload.issue;
 
-            console.log(issue.body)
-
             // Validate compliance checks
             const checkboxRegex = /\[x\]/gi;
             const checkboxes = issue.body.match(checkboxRegex) || [];
@@ -27,8 +25,9 @@ jobs:
             const email = issue.body.match(emailRegex);
             const emailIsValid = email !== null;
             console.log(`Email is valid: ${emailIsValid}`);
+            core.setOutput('email', email);
 
-            // Validation result
+            // Store validation result
             const passed = emailIsValid && checklistComplete
             core.setOutput('passed', passed);
 
@@ -50,10 +49,18 @@ jobs:
             }
 
           
-      - name: Run the workflow if checklist is complete
+
+      - name: Send invite to user
         if: steps.validation.outputs.passed == 'true'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          # Add your desired commands here to be executed when the checklist is complete
-          # For example, you can run a shell script or any other commands
-          echo "Checklist is complete! Running additional steps..."
-          # Add your additional commands here
+          # Get the validated email from the output of step one
+          USER_EMAIL="${{ steps.validation.outputs.email }}"
+          # Replace 'organization' with the name of your organization
+          ORGANIZATION="organization"
+          # Send the invitation
+          # gh org invite $USER_EMAIL -o $ORGANIZATION
+
+          gh issue comment ${GITHUB_REF##*/} -b "Invitation email has been sent to $USER_EMAIL."
+
