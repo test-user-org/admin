@@ -34,12 +34,17 @@ jobs:
 
       - name: Add comment if checklist is not complete
         if: steps.validate.outputs.checklistComplete != 'true'
-        uses: actions/github-script@v5
+        uses: actions/github-script@v6
         with:
           script: |
             const issue = context.payload.issue;
             const comment = 'Please make sure to check all checkboxes before proceeding.';
-            github.issues.createComment({ issue_number: issue.number, owner: context.repo.owner, repo: context.repo.repo, body: comment });
+            await github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: body
+            })
           
       - name: Run the workflow if checklist is complete
         if: steps.check_checkboxes.outputs.checklistComplete == 'true'
