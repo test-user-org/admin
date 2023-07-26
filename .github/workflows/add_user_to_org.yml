@@ -64,8 +64,8 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
-            const organizations = ${{steps.validation.outputs.organizations}};
-            const email = ${{steps.validation.outputs.email}};
+            const organizations = '${{steps.validation.outputs.organizations}}';
+            const email = '${{steps.validation.outputs.email}}';
             console.log(organizations);
             console.log(email)
 
