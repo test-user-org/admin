@@ -68,7 +68,7 @@ jobs:
             const email = core.getInput('email');
 
             organizations.split(',').forEach((organization) => {
-              console.log(`Inviting user to organization ${organization}`);
+              console.log(`Inviting ${email} to organization ${organization}`);
               //github.rest.orgs.inviteUser({
               //  organization: organization,
               //  email: email
@@ -76,7 +76,7 @@ jobs:
             });
 
             // Add comment to issue
-            const comment = `Invited user to organizations ${organizations}`;
+            const comment = `Invited you to ${organizations}. Please have a look in your inbox.`;
             github.rest.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
