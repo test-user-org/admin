@@ -17,7 +17,7 @@ jobs:
             console.log(issue.body)
 
             // Validate compliance checks
-            const checkboxRegex = /\[X\]/;
+            const checkboxRegex = /\[x\]/;
             const checkboxes = issue.body.match(checkboxRegex) || [];
             let checklistComplete = checkboxes.length === 3;
             console.log(`Checklist complete: ${checklistComplete}`);
@@ -34,7 +34,7 @@ jobs:
 
             // Add comment to issue if validation fails
             if (!passed) {
-              let comment = 'The request cannot be processed:\n\n';
+              let comment = 'Before proceeding:\n\n';
               if (!emailIsValid) {
                 comment += 'Please use an email address from Allianz.\n';
               }
