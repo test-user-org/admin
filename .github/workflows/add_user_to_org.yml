@@ -33,3 +33,4 @@ jobs:
         if: steps.check_checkboxes.outputs.checklistComplete == 'true'
         # Add your desired steps here that should run when the checklist is complete
         # For example, you can add build, test, or notification steps
+        run: echo "complete"
