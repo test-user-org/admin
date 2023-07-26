@@ -27,11 +27,17 @@ jobs:
             const email = issue.body.match(emailRegex);
             const emailIsValid = email !== null;
             console.log(`Email is valid: ${emailIsValid}`);
-            core.setOutput('email', email);
+            
+            // Extract organizations 
+            const organizationRegex = (### Organization\s*[\r\n])([^\r\n]+);
+            const organizations = issue.body.match(organizationRegex) || [];
+            console.log(`Organizations: ${organizations}`);
 
-            // Store validation result
+            // Store outputs
             const passed = emailIsValid && checklistComplete
             core.setOutput('passed', passed);
+            core.setOutput('email', email);
+            core.setOutput('organizations', organizations);
 
             // Add comment to issue if validation fails
             if (!passed) {
