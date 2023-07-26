@@ -16,11 +16,21 @@ jobs:
 
             console.log(issue.body)
 
+            // Validate compliance checks
             const checkboxRegex = /\[X\]/g;
             const checkboxes = issue.body.match(checkboxRegex) || [];
             let checklistComplete = checkboxes.length === 3;
+
+            // Validate email
+            const emailRegex = /[a-zA-Z0-9._-]+@(allianz.)/;
+            const email = issue.body.match(emailRegex);
+            const emailIsValid = email !== null;
+
+            // Output
             console.log(`Checklist complete: ${checklistComplete}`);
+            console.log(`Email is valid: ${emailIsValid}`);
             core.setOutput('checklistComplete', checklistComplete);
+            core.setOutput('emailIsValid', emailIsValid);
 
       - name: Add comment if checklist is not complete
         if: steps.check_checkboxes.outputs.checklistComplete != 'true'
