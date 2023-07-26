@@ -9,7 +9,7 @@ jobs:
     steps:
       - name: Validate user input
         id: validate
-        uses: actions/github-script@v5
+        uses: actions/github-script@v6
         with:
           script: |
             const issue = context.payload.issue;
