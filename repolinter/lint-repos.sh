@@ -33,13 +33,27 @@ close_issue() {
   fi
 }
 
+# Function to get the repolinter.yaml content for the repository
+get_repolinter_config() {
+  REPO=$1
+  LOCAL_CONFIG_URL="https://raw.githubusercontent.com/$REPO/main/.github/repolinter.yaml"
+  GLOBAL_CONFIG_URL="https://raw.githubusercontent.com/test-user-org/admin/main/.github/repolinter.yaml"
+  LOCAL_CONFIG=$(curl -s "$LOCAL_CONFIG_URL")
+  if [ "$LOCAL_CONFIG" != "404: Not Found"  ]; then
+    echo "$LOCAL_CONFIG"
+  else
+    curl -s $GLOBAL_CONFIG_URL
+  fi
+}
+
+
 # Loop through each repository and create an issue
 REPOS=$(gh repo list $ORG_NAME --visibility public -L 100 | awk '{print $1}')
 for REPO in $REPOS; do
     echo
     echo "Linting the repository '$REPO'..."
     mkdir -p ../results/$REPO
-    repolinter -g https://github.com/$REPO -f markdown -u https://raw.githubusercontent.com/test-user-org/admin/main/.github/repolinter.yaml > ../results/$REPO.md
+    repolinter -g https://github.com/$REPO -f markdown -u <(get_repolinter_config "$REPO")  > ../results/$REPO.md
     if [ $? -eq 1 ] ; then
         failure="The repository '$REPO' is not compliant with Allianz guidelines. Please review opensource.allianz.com/guidelines"
         report=`cat ../results/$REPO.md`
