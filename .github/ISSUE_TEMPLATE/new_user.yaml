@@ -1,0 +1,36 @@
+## Bug Report Issue Template
+name: Join Allianz Incubation
+description: Request to join the Allianz Incubation organization
+title: "<Reason>"
+labels: ["bug", "triage"]
+body:
+
+  ## Introduction 
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this form!
+ 
+  ## Bug Description 
+  - type: input
+    id: email
+    attributes:
+      label: Email
+      description: |
+        Only Allianz email addresses are accepted
+      placeholder: joe.doe@allianz.com   
+    validations:
+      required: true       
+
+  - type: checkboxes
+    id: component
+    attributes:
+      label: Compliance
+      description: Please read the Allianz guidelines first
+      options:
+       - label: "I confirm that personal data (name and work email) will be public visible on Github"
+       - label: "I confirm that profile picture is not viloating copyright and user name is not offensive"
+       - label: "I confirm that I have read the guidelines on publishing code on Github" 
+    validations:
+      required: true            
+  
