@@ -1,8 +1,8 @@
 ## Bug Report Issue Template
-name: Join Allianz Incubation
-description: Request to join the Allianz Incubation organization
+name: Join Organization
+description: Request to join an Allianz open source organization
 title: "<Reason>"
-labels: ["bug", "triage"]
+labels: ["join"]
 body:
 
   - type: markdown
@@ -15,7 +15,7 @@ body:
     attributes:
       label: Email
       description: |
-        Only Allianz email addresses are accepted
+        Your work email address
       placeholder: joe.doe@allianz.com   
     validations:
       required: true    
