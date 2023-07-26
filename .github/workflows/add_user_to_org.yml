@@ -20,7 +20,7 @@ jobs:
             const checkboxRegex = /\[x\]/;
             const checkboxes = issue.body.match(checkboxRegex) || [];
             let checklistComplete = checkboxes.length === 3;
-            console.log(`Checklist complete: ${checklistComplete}`);
+            console.log(`Number of checks: ${checkboxes.length}`);
 
             // Validate email
             const emailRegex = /[a-zA-Z0-9._-]+@(allianz.)/;
