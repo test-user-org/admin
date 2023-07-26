@@ -1,0 +1,35 @@
+name: Issue Checklist Workflow
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  check_issue_checklist:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check if checkboxes are ticked
+        id: check_checkboxes
+        uses: actions/github-script@v5
+        with:
+          script: |
+            const issue = context.payload.issue;
+
+            console.log(issue)
+
+            const requiredCheckboxes = ['[ ] Task 1', '[ ] Task 2', '[ ] Task 3']; // Modify this with your checklist items
+
+            let checklistComplete = true;
+            for (const checkbox of requiredCheckboxes) {
+              if (!issue.body.includes(checkbox)) {
+                checklistComplete = false;
+                break;
+              }
+            }
+
+            console.log(`Checklist complete: ${checklistComplete}`);
+            core.setOutput('checklistComplete', checklistComplete);
+
+      - name: Run the workflow if checklist is complete
+        if: steps.check_checkboxes.outputs.checklistComplete == 'true'
+        # Add your desired steps here that should run when the checklist is complete
+        # For example, you can add build, test, or notification steps
