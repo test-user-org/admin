@@ -17,7 +17,7 @@ jobs:
             console.log(issue.body)
 
             // Validate compliance checks
-            const checkboxRegex = /\[x\]/i;
+            const checkboxRegex = /\[x\]/gi;
             const checkboxes = issue.body.match(checkboxRegex) || [];
             let checklistComplete = checkboxes.length === 3;
             console.log(`Number of checks: ${checkboxes.length}`);
