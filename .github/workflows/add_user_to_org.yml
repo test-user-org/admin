@@ -13,24 +13,27 @@ jobs:
         with:
           script: |
             const issue = context.payload.issue;
+            const checkboxRegex = /\[ \]|\[X\]/g;
+            const checkboxes = issue.body.match(checkboxRegex) || [];
+            const requiredCheckboxes = 3; // Modify this with the total number of checkboxes
 
-            console.log(issue)
-
-            const requiredCheckboxes = ['[ ] Task 1', '[ ] Task 2', '[ ] Task 3']; // Modify this with your checklist items
-
-            let checklistComplete = true;
-            for (const checkbox of requiredCheckboxes) {
-              if (!issue.body.includes(checkbox)) {
-                checklistComplete = false;
-                break;
-              }
-            }
-
+            let checklistComplete = checkboxes.length === requiredCheckboxes;
             console.log(`Checklist complete: ${checklistComplete}`);
             core.setOutput('checklistComplete', checklistComplete);
 
+      - name: Add comment if checklist is not complete
+        if: steps.check_checkboxes.outputs.checklistComplete != 'true'
+        uses: actions/github-script@v5
+        with:
+          script: |
+            const issue = context.payload.issue;
+            const comment = 'Please make sure to check all checkboxes before proceeding.';
+            github.issues.createComment({ issue_number: issue.number, owner: context.repo.owner, repo: context.repo.repo, body: comment });
+          
       - name: Run the workflow if checklist is complete
         if: steps.check_checkboxes.outputs.checklistComplete == 'true'
-        # Add your desired steps here that should run when the checklist is complete
-        # For example, you can add build, test, or notification steps
-        run: echo "complete"
+        run: |
+          # Add your desired commands here to be executed when the checklist is complete
+          # For example, you can run a shell script or any other commands
+          echo "Checklist is complete! Running additional steps..."
+          # Add your additional commands here
