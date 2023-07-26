@@ -1,14 +1,14 @@
 name: Issue Checklist Workflow
 on:
   issues:
-    types: [opened]
+    types: [opened, edited]
 
 jobs:
   check_issue_checklist:
     runs-on: ubuntu-latest
     steps:
-      - name: Check if checkboxes are ticked
-        id: check_checkboxes
+      - name: Validate user input
+        id: validate
         uses: actions/github-script@v5
         with:
           script: |
@@ -33,7 +33,7 @@ jobs:
             core.setOutput('emailIsValid', emailIsValid);
 
       - name: Add comment if checklist is not complete
-        if: steps.check_checkboxes.outputs.checklistComplete != 'true'
+        if: steps.validate.outputs.checklistComplete != 'true'
         uses: actions/github-script@v5
         with:
           script: |
