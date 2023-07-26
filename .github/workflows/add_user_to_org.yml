@@ -64,9 +64,10 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
-            const organizations = steps.validation.outputs.organizations;
-            const email = steps.validation.outputs.email;
+            const organizations = core.getInput('organizations');
+            const email = core.getInput('email')
             console.log(organizations);
+            console.log(email);
 
             organizations.split(',').forEach((organization) => {
               console.log(`Inviting ${email} to organization ${organization}`);
