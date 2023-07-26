@@ -34,7 +34,7 @@ jobs:
             console.log(`Organizations: ${organizations}`);
 
             // Store outputs
-            const passed = emailIsValid && checklistComplete
+            const passed = emailIsValid && checklistComplete;
             core.setOutput('passed', passed);
             core.setOutput('email', email);
             core.setOutput('organizations', organizations);
