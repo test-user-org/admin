@@ -16,11 +16,11 @@ jobs:
 
             console.log(issue.body)
 
-            const checkboxRegex = /\[ \]|\[X\]/g;
+            const checkboxRegex = /\[ \s* \]/g;
             const checkboxes = issue.body.match(checkboxRegex) || [];
             const requiredCheckboxes = 3; // Modify this with the total number of checkboxes
 
-            let checklistComplete = checkboxes.length === requiredCheckboxes;
+            let checklistComplete = checkboxes.length === 0;
             console.log(`Checklist complete: ${checklistComplete}`);
             core.setOutput('checklistComplete', checklistComplete);
 
