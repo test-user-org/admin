@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Validate user input
-        id: validate
+        id: validation
         uses: actions/github-script@v6
         with:
           script: |
@@ -20,34 +20,38 @@ jobs:
             const checkboxRegex = /\[X\]/g;
             const checkboxes = issue.body.match(checkboxRegex) || [];
             let checklistComplete = checkboxes.length === 3;
+            console.log(`Checklist complete: ${checklistComplete}`);
 
             // Validate email
             const emailRegex = /[a-zA-Z0-9._-]+@(allianz.)/;
             const email = issue.body.match(emailRegex);
             const emailIsValid = email !== null;
-
-            // Output
-            console.log(`Checklist complete: ${checklistComplete}`);
             console.log(`Email is valid: ${emailIsValid}`);
-            core.setOutput('checklistComplete', checklistComplete);
-            core.setOutput('emailIsValid', emailIsValid);
 
-      - name: Add comment if checklist is not complete
-        if: steps.validate.outputs.checklistComplete != 'true'
-        uses: actions/github-script@v6
-        with:
-          script: |
-            const issue = context.payload.issue;
-            const comment = 'Please make sure to check all checkboxes before proceeding.';
-            await github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: comment
-            })
+            // Validation result
+            const passed = emailIsValid && checklistComplete
+            core.setOutput('passed', passed);
+
+            // Add comment to issue if validation fails
+            if (!passed) {
+              let comment = 'The request cannot be processed:\n\n';
+              if (!emailIsValid) {
+                comment += 'Please use an email address from Allianz.\n';
+              }
+              if (!checklistComplete) {
+                comment += 'Please make sure to check all checkboxes.';
+              }
+              await github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: comment
+              });
+            }
+
           
       - name: Run the workflow if checklist is complete
-        if: steps.check_checkboxes.outputs.checklistComplete == 'true'
+        if: steps.validation.outputs.passed == 'true'
         run: |
           # Add your desired commands here to be executed when the checklist is complete
           # For example, you can run a shell script or any other commands
