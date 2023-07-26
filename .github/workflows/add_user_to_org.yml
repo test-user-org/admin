@@ -1,4 +1,4 @@
-name: Issue Checklist Workflow
+name: Organization Member Onboarding Workflow
 on:
   issues:
     types: [opened, edited]
@@ -13,6 +13,8 @@ jobs:
         with:
           script: |
             const issue = context.payload.issue;
+
+            console.log(issue.body);
 
             // Validate compliance checks
             const checkboxRegex = /\[x\]/gi;
