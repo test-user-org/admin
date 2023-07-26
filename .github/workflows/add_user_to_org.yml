@@ -63,16 +63,16 @@ jobs:
         id: sending
         uses: actions/github-script@v6
         with:
-          run: |
+          script: |
             const organizations = core.getInput('organizations');
             const email = core.getInput('email');
 
             organizations.split(',').forEach((organization) => {
               console.log(`Inviting user to organization ${organization}`);
-              github.rest.orgs.inviteUser({
-                organization: organization,
-                email: email
-              });
+              //github.rest.orgs.inviteUser({
+              //  organization: organization,
+              //  email: email
+              //});
             });
 
             // Add comment to issue
