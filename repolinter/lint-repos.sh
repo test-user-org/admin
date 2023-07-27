@@ -55,7 +55,7 @@ for REPO in $REPOS; do
     mkdir -p ../results/$REPO
     repolinter -g https://github.com/$REPO -f markdown -u <(get_repolinter_config "$REPO")  > ../results/$REPO.md
     if [ $? -eq 1 ] ; then
-        failure="The repository '$REPO' is not compliant with Allianz guidelines. Please review opensource.allianz.com/guidelines"
+        failure="The repository '$REPO' is not compliant with Allianz guidelines. Please review https://developer.portal.allianz/docs/default/component/open-source-guide"
         report=`cat ../results/$REPO.md`
         create_issue_if_not_exists "$REPO" "Repo lint error" "$failure\n\n$report"
     else
