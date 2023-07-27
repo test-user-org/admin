@@ -31,6 +31,15 @@ rules:
           - "CONTRIB*"
         nocase: true
 
+  maintainer-file-exists:
+    level: error
+    rule:
+      type: file-existence
+      options:
+        globsAny:
+          - "MAINTAINER*"
+        nocase: true
+
   readme-references-license:
     level: error
     rule:
@@ -40,16 +49,6 @@ rules:
           - "README*"
         content: license
         flags: i
-
-  test-directory-exists:
-    level: error
-    rule:
-      type: directory-existence
-      options:
-        globsAny:
-          - "**/test*"
-          - "**/specs"
-        nocase: true
 
   license-detectable-by-licensee:
     level: error
