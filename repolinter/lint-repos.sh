@@ -1,6 +1,6 @@
 #!/bin/bash
 # test
-# test
+# test test
 cd "$(dirname "$0")"
 rm -Rf ../results
 
